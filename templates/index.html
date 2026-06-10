@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HARDWOOD — Basketball Battle Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="synth-grid" aria-hidden="true"></div>
+  <div class="synth-sun" aria-hidden="true"></div>
+  <div class="crt-overlay" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-lines" aria-hidden="true"></div>
+      <div class="hero-main">
+        <span class="badge"><span class="badge-dot"></span> NBA Matchup Engine</span>
+        <h1 class="hero-title">
+          <span class="hero-title-line">BUILD YOUR</span>
+          <span class="hero-title-line hero-title-accent" data-text="STARTING FIVE">STARTING FIVE</span>
+        </h1>
+        <p class="hero-sub">Draft five players a side, tip off the simulation, and watch the model sharpen its read on every matchup it runs.</p>
+      </div>
+      <aside class="hero-board" aria-hidden="false">
+        <div class="board-strip">
+          <span class="board-label">Host</span>
+          <span class="board-value">127.0.0.1<span class="board-port">:5000</span></span>
+        </div>
+        <div class="board-strip">
+          <span class="board-label">Data Feed</span>
+          <span class="board-value">nba_api</span>
+        </div>
+        <div class="board-strip board-strip--live">
+          <span class="board-label">Model</span>
+          <span class="board-value">Self-Training <span class="live-dot"></span></span>
+        </div>
+      </aside>
+    </header>
+
+    <main>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <section class="alert-panel reveal">
+        {% for category, message in messages %}
+          <div class="alert {{ category }}">
+            <span class="alert-flag">!</span>
+            <span>{{ message }}</span>
+          </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+      {% endwith %}
+
+      <form class="filter-panel reveal" method="GET">
+        {% for player_id in selected_a %}
+        <input type="hidden" name="selected_a" value="{{ player_id }}" />
+        {% endfor %}
+        {% for player_id in selected_b %}
+        <input type="hidden" name="selected_b" value="{{ player_id }}" />
+        {% endfor %}
+
+        <div class="filter-head">
+          <span class="kicker">Roster Control</span>
+          <h2>Scout the pool</h2>
+        </div>
+
+        <div class="filter-grid">
+          <label class="field field--search">
+            <span class="field-label">Search</span>
+            <input type="search" name="search" value="{{ filter_values.search }}" placeholder="Name or nickname" />
+          </label>
+
+          <label class="field">
+            <span class="field-label">Team</span>
+            <select name="team_filter">
+              <option value="">All teams</option>
+              {% for team in team_options %}
+              <option value="{{ team }}" {% if team == filter_values.team_filter %}selected{% endif %}>{{ team }}</option>
+              {% endfor %}
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Position</span>
+            <select name="position_filter">
+              <option value="">All positions</option>
+              {% for position in position_options %}
+              <option value="{{ position }}" {% if position == filter_values.position_filter %}selected{% endif %}>{{ position }}</option>
+              {% endfor %}
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Era</span>
+            <select name="era_filter">
+              <option value="">All eras</option>
+              {% for era in era_options %}
+              <option value="{{ era }}" {% if era == filter_values.era_filter %}selected{% endif %}>{{ era }}</option>
+              {% endfor %}
+            </select>
+          </label>
+
+          <button class="btn btn--ghost filter-button" type="submit">Filter Roster</button>
+        </div>
+
+        {% if filter_values.search or filter_values.team_filter or filter_values.position_filter or filter_values.era_filter %}
+        <p class="filter-summary">Showing <strong>{{ players|length }}</strong> players matching the active filters.</p>
+        {% endif %}
+      </form>
+
+      <form class="selection-grid reveal" method="POST">
+        <input type="hidden" name="search" value="{{ filter_values.search }}" />
+        <input type="hidden" name="team_filter" value="{{ filter_values.team_filter }}" />
+        <input type="hidden" name="position_filter" value="{{ filter_values.position_filter }}" />
+        <input type="hidden" name="era_filter" value="{{ filter_values.era_filter }}" />
+
+        {# Persist picks that are selected but filtered out of the current view,
+           so they keep counting and still submit when the simulation runs. #}
+        {% set visible_ids = players | map(attribute='id') | map('string') | list %}
+        {% for pid in selected_a %}{% if pid not in visible_ids %}<input type="hidden" name="team_a" value="{{ pid }}" />{% endif %}{% endfor %}
+        {% for pid in selected_b %}{% if pid not in visible_ids %}<input type="hidden" name="team_b" value="{{ pid }}" />{% endif %}{% endfor %}
+
+        <section class="team-panel team-panel--a">
+          <div class="team-header">
+            <span class="team-side">Home</span>
+            <h2>Team A</h2>
+            <span class="team-count" data-count-for="team_a">0<span class="team-count-max">/5</span></span>
+          </div>
+          <div class="player-list">
+            {% for player in players %}
+            <label class="player-card">
+              <input type="checkbox" name="team_a" value="{{ player.id }}" {% if player.id|string in selected_a %}checked{% endif %} />
+              <span class="player-check" aria-hidden="true"></span>
+              <span class="player-body">
+                <span class="player-name">{{ player.full_name }}</span>
+                <span class="player-subtitle">{{ player.position }} · {{ player.team_abbreviation }}</span>
+              </span>
+              <span class="rating-badge">{{ player.rating }}</span>
+            </label>
+            {% endfor %}
+          </div>
+        </section>
+
+        <div class="versus">
+          <div class="versus-mark">VS</div>
+          <div class="panel-card versus-info">
+            <h3>How it works</h3>
+            <p>Pick five players per side from the NBA pool. The engine pulls player metadata and career stats to play out the matchup, then trains its prediction model on every result.</p>
+          </div>
+          <button class="btn btn--run" type="submit">
+            <span>Run Simulation</span>
+            <span class="btn-arrow" aria-hidden="true">▸</span>
+          </button>
+        </div>
+
+        <section class="team-panel team-panel--b">
+          <div class="team-header">
+            <span class="team-side">Away</span>
+            <h2>Team B</h2>
+            <span class="team-count" data-count-for="team_b">0<span class="team-count-max">/5</span></span>
+          </div>
+          <div class="player-list">
+            {% for player in players %}
+            <label class="player-card">
+              <input type="checkbox" name="team_b" value="{{ player.id }}" {% if player.id|string in selected_b %}checked{% endif %} />
+              <span class="player-check" aria-hidden="true"></span>
+              <span class="player-body">
+                <span class="player-name">{{ player.full_name }}</span>
+                <span class="player-subtitle">{{ player.position }} · {{ player.team_abbreviation }}</span>
+              </span>
+              <span class="rating-badge">{{ player.rating }}</span>
+            </label>
+            {% endfor %}
+          </div>
+        </section>
+      </form>
+
+      {% if result %}
+      <section class="result-panel reveal">
+        <div class="scoreboard">
+          <div class="scoreboard-team scoreboard-team--a {% if result.winner == 'Team A' %}is-winner{% endif %}">
+            <span class="scoreboard-side">Home</span>
+            <span class="scoreboard-name">Team A</span>
+            <span class="scoreboard-score">{{ result.score_a }}</span>
+          </div>
+          <div class="scoreboard-center">
+            <span class="scoreboard-final">Final</span>
+            <span class="scoreboard-winner">{{ result.winner }}</span>
+            <span class="scoreboard-tag">Winner</span>
+          </div>
+          <div class="scoreboard-team scoreboard-team--b {% if result.winner == 'Team B' %}is-winner{% endif %}">
+            <span class="scoreboard-side">Away</span>
+            <span class="scoreboard-name">Team B</span>
+            <span class="scoreboard-score">{{ result.score_b }}</span>
+          </div>
+        </div>
+
+        <div class="prediction-grid">
+          <div class="panel-card">
+            <h4>Win Probability</h4>
+            {% set prob_a = (result.prediction.team_a_win_probability * 100) %}
+            <div class="prob-bar" style="--prob: {{ prob_a }}%;">
+              <span class="prob-fill-a"></span>
+              <span class="prob-fill-b"></span>
+            </div>
+            <div class="prob-legend">
+              <span class="prob-tag prob-tag--a">A · {{ '%.1f' | format(prob_a) }}%</span>
+              <span class="prob-tag prob-tag--b">B · {{ '%.1f' | format(100 - prob_a) }}%</span>
+            </div>
+            <dl class="stat-pairs">
+              <div><dt>Expected A</dt><dd>{{ result.prediction.expected_score_a }}</dd></div>
+              <div><dt>Expected B</dt><dd>{{ result.prediction.expected_score_b }}</dd></div>
+            </dl>
+          </div>
+          <div class="panel-card">
+            <h4>Model State</h4>
+            <dl class="stat-pairs stat-pairs--stack">
+              <div><dt>Rating Weight</dt><dd>{{ result.model_weights.rating_weight }}</dd></div>
+              <div><dt>Bias</dt><dd>{{ result.model_weights.bias }}</dd></div>
+            </dl>
+            <p class="panel-note">Updated after this run.</p>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="panel-card stats-table stats-table--a">
+            <h4>Team A · Box Score</h4>
+            <table>
+              <thead>
+                <tr><th>Player</th><th>PTS</th><th>AST</th><th>REB</th><th>STL</th><th>BLK</th></tr>
+              </thead>
+              <tbody>
+                {% for player in result.team_a_stats %}
+                <tr>
+                  <td class="cell-name">{{ player.name }}</td>
+                  <td class="cell-key">{{ player.points }}</td>
+                  <td>{{ player.assists }}</td>
+                  <td>{{ player.rebounds }}</td>
+                  <td>{{ player.steals }}</td>
+                  <td>{{ player.blocks }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="panel-card stats-table stats-table--b">
+            <h4>Team B · Box Score</h4>
+            <table>
+              <thead>
+                <tr><th>Player</th><th>PTS</th><th>AST</th><th>REB</th><th>STL</th><th>BLK</th></tr>
+              </thead>
+              <tbody>
+                {% for player in result.team_b_stats %}
+                <tr>
+                  <td class="cell-name">{{ player.name }}</td>
+                  <td class="cell-key">{{ player.points }}</td>
+                  <td>{{ player.assists }}</td>
+                  <td>{{ player.rebounds }}</td>
+                  <td>{{ player.steals }}</td>
+                  <td>{{ player.blocks }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      {% endif %}
+    </main>
+
+    <footer class="site-foot">
+      <span>Hardwood Sim</span>
+      <span>Local build · NBA data via nba_api</span>
+    </footer>
+  </div>
+
+  <script>
+    const filterForm = document.querySelector('.filter-panel');
+    const selectionForm = document.querySelector('.selection-grid');
+
+    // An input counts as "selected" if it's a hidden persisted pick or a checked box.
+    const isSelected = (input) => input.type === 'hidden' || input.checked;
+
+    // Carry the full current selection (visible + persisted) onto the filter form,
+    // so filtering never drops a player. De-duplicated by value.
+    if (filterForm && selectionForm) {
+      filterForm.addEventListener('submit', () => {
+        ['team_a', 'team_b'].forEach(name => {
+          const carry = name === 'team_a' ? 'selected_a' : 'selected_b';
+          filterForm.querySelectorAll(`input[name="${carry}"]`).forEach(node => node.remove());
+          const seen = new Set();
+          selectionForm.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+            if (!isSelected(input) || seen.has(input.value)) return;
+            seen.add(input.value);
+            const hidden = document.createElement('input');
+            hidden.type = 'hidden';
+            hidden.name = carry;
+            hidden.value = input.value;
+            filterForm.appendChild(hidden);
+          });
+        });
+      });
+    }
+
+    // Live selection counters + 5-player cap per team + run-button readiness.
+    if (selectionForm) {
+      const runBtn = selectionForm.querySelector('.btn--run');
+      const countFor = (name) =>
+        [...selectionForm.querySelectorAll(`input[name="${name}"]`)].filter(isSelected).length;
+
+      const sync = (name) => {
+        const counter = selectionForm.querySelector(`[data-count-for="${name}"]`);
+        const boxes = [...selectionForm.querySelectorAll(`input[name="${name}"]`)];
+        const count = boxes.filter(isSelected).length;
+        if (counter) {
+          counter.firstChild.textContent = count;
+          counter.classList.toggle('is-full', count >= 5);
+        }
+        boxes.forEach(b => {
+          if (b.type === 'hidden') return; // persisted picks aren't on screen to toggle
+          b.disabled = !b.checked && count >= 5;
+          const card = b.closest('.player-card');
+          if (card) card.classList.toggle('is-locked', b.disabled);
+        });
+        if (runBtn) {
+          const ready = countFor('team_a') === 5 && countFor('team_b') === 5;
+          runBtn.disabled = !ready;
+          runBtn.title = ready ? '' : 'Pick exactly 5 players for each team';
+        }
+      };
+      ['team_a', 'team_b'].forEach(name => {
+        selectionForm.querySelectorAll(`input[name="${name}"]`).forEach(b => {
+          b.addEventListener('change', () => sync(name));
+        });
+        sync(name);
+      });
+    }
+
+    // Staggered reveal on load.
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach((el, i) => {
+      el.style.setProperty('--reveal-delay', `${i * 90}ms`);
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('is-in')));
+    });
+  </script>
+</body>
+</html>

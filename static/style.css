@@ -1,0 +1,492 @@
+/* ============================================================
+   HARDWOOD // SYNTH-COURT
+   Generated from the UI/UX Pro Max skill — style: Retro-Futurism
+   Display: Russo One · Body: Chakra Petch · Numerals: Share Tech Mono
+   Palette: neon purple/blue + hot-pink & cyan team IDs on deep space
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+
+  /* Space */
+  --bg:           #0f0f23;
+  --bg-deep:      #0a0a18;
+  --panel:        #16162e;
+  --panel-2:      #1c1c3a;
+  --line:         rgba(124, 92, 255, 0.22);
+  --line-strong:  rgba(124, 92, 255, 0.45);
+
+  /* Ink */
+  --text:         #e8e6ff;
+  --muted:        #a6a3d4;
+  --muted-dim:    #6f6ca0;
+
+  /* Neon brand */
+  --primary:      #7c3aed;   /* neon purple */
+  --primary-2:    #a78bfa;
+  --blue:         #0080ff;
+  --cta:          #f43f5e;    /* rose action */
+  --cta-2:        #ff006e;    /* hot pink */
+
+  /* Team identities */
+  --home:         #ff006e;    /* Team A — hot pink */
+  --home-glow:    rgba(255, 0, 110, 0.55);
+  --home-soft:    rgba(255, 0, 110, 0.14);
+  --away:         #00f0ff;    /* Team B — cyan */
+  --away-glow:    rgba(0, 240, 255, 0.5);
+  --away-soft:    rgba(0, 240, 255, 0.12);
+
+  --danger:       #ff3b6b;
+  --ok:           #2bffb0;
+
+  /* z-index scale (skill: z-index-management) */
+  --z-bg: 0; --z-base: 1; --z-overlay: 30; --z-sticky: 20;
+
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 14px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: 'Chakra Petch', system-ui, sans-serif;
+  font-size: 16px;                 /* readable-font-size */
+  line-height: 1.6;                /* line-height 1.5–1.75 */
+  color: var(--text);
+  background: var(--bg-deep);
+  min-height: 100vh;
+  overflow-x: hidden;              /* horizontal-scroll guard */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Synthwave atmosphere (3 fixed layers) ---------- */
+/* 1. Gradient sun + nebula */
+.synth-sun {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-bg);
+  pointer-events: none;
+  background:
+    radial-gradient(620px 360px at 50% 8%, rgba(255, 0, 110, 0.18), transparent 60%),
+    radial-gradient(900px 520px at 84% 0%, rgba(124, 58, 237, 0.22), transparent 62%),
+    radial-gradient(760px 480px at 8% 12%, rgba(0, 240, 255, 0.12), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 70%);
+}
+/* 2. Perspective neon grid floor */
+.synth-grid {
+  position: fixed;
+  left: -25%; right: -25%; bottom: -10%;
+  height: 56vh;
+  z-index: var(--z-bg);
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(124, 92, 255, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 92, 255, 0.35) 1px, transparent 1px);
+  background-size: 52px 52px;
+  transform: perspective(420px) rotateX(68deg);
+  transform-origin: bottom center;
+  mask-image: linear-gradient(to top, #000 0%, transparent 88%);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 88%);
+  opacity: 0.55;
+}
+/* 3. CRT scanlines */
+.crt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.16) 0px,
+    rgba(0, 0, 0, 0.16) 1px,
+    transparent 2px,
+    transparent 3px
+  );
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+
+.page-shell {
+  position: relative;
+  z-index: var(--z-base);
+  max-width: 1400px;            /* consistent max-width */
+  margin: 0 auto;
+  padding: 38px 28px 60px;
+}
+
+/* ---------- Type primitives ---------- */
+h1, h2, h3, h4 { margin: 0; font-family: 'Russo One', sans-serif; font-weight: 400; }
+
+.kicker {
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--primary-2);
+}
+
+/* Visible focus rings everywhere (skill: focus-states) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+.player-card:focus-within {
+  outline: 2px solid var(--away);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.6fr 0.9fr;
+  align-items: end;
+  gap: 32px;
+  padding: 32px 34px 36px;
+  margin-bottom: 30px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background:
+    linear-gradient(135deg, rgba(255, 0, 110, 0.08), transparent 40%),
+    linear-gradient(225deg, rgba(0, 240, 255, 0.06), transparent 42%),
+    rgba(22, 22, 46, 0.72);
+  box-shadow: 0 0 0 1px rgba(124,92,255,0.12), 0 24px 60px -30px rgba(124,58,237,0.6);
+  overflow: hidden;
+}
+.hero-lines { position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(90deg, transparent 0 86px, rgba(124,92,255,0.05) 86px 87px); }
+.hero-lines::after {
+  content: ""; position: absolute; right: -120px; top: 50%;
+  transform: translateY(-50%); width: 360px; height: 360px;
+  border: 2px solid rgba(0,240,255,0.08); border-radius: 50%;
+  box-shadow: 0 0 60px rgba(0,240,255,0.12) inset;
+}
+.hero-main { position: relative; z-index: 1; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 8px 15px; border: 1px solid var(--line-strong);
+  border-radius: 999px; background: rgba(124,58,237,0.12);
+  color: var(--primary-2);
+  font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+}
+.badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cta-2);
+  box-shadow: 0 0 12px var(--home-glow); }
+
+.hero-title {
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  margin: 18px 0 16px;
+  font-size: clamp(2.8rem, 7.4vw, 6.2rem);
+}
+.hero-title-line { display: block; color: var(--text); text-shadow: 0 0 18px rgba(124,92,255,0.45); }
+.hero-title-accent {
+  position: relative;
+  color: #fff;
+  text-shadow:
+    0 0 8px var(--cta-2),
+    0 0 22px var(--home-glow),
+    0 0 44px var(--home-glow);
+}
+/* Glitch — the ONE signature animation on this view (skill: excessive-motion) */
+.hero-title-accent::before,
+.hero-title-accent::after {
+  content: attr(data-text);
+  position: absolute; left: 0; top: 0;
+  width: 100%; overflow: hidden;
+}
+.hero-title-accent::before { color: var(--away); clip-path: inset(0 0 58% 0);
+  animation: glitch-top 3.6s steps(2, jump-none) infinite; }
+.hero-title-accent::after  { color: var(--cta-2); clip-path: inset(58% 0 0 0);
+  animation: glitch-bot 3.6s steps(2, jump-none) infinite; }
+@keyframes glitch-top { 0%,92%,100% { transform: none; } 94% { transform: translate(-3px,-1px); } 96% { transform: translate(2px,1px); } }
+@keyframes glitch-bot { 0%,92%,100% { transform: none; } 94% { transform: translate(3px,1px); } 96% { transform: translate(-2px,-1px); } }
+
+.hero-sub { max-width: 56ch; margin: 0; color: var(--muted); font-size: 1.04rem; }
+
+.hero-board { position: relative; z-index: 1; display: grid; gap: 10px; }
+.board-strip {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+  padding: 14px 18px; border: 1px solid var(--line);
+  border-left: 3px solid var(--primary); border-radius: var(--r-sm);
+  background: rgba(10,10,24,0.5);
+}
+.board-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted-dim); }
+.board-value { font-family: 'Share Tech Mono', monospace; font-size: 1.04rem; color: var(--text); }
+.board-port { color: var(--away); }
+.board-strip--live { border-left-color: var(--away); }
+.live-dot { display: inline-block; width: 7px; height: 7px; margin-left: 4px; border-radius: 50%;
+  background: var(--away); box-shadow: 0 0 10px var(--away); animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+/* ============================================================
+   FILTER / ROSTER CONTROL
+   ============================================================ */
+.filter-panel {
+  padding: 24px 26px; margin-bottom: 26px;
+  border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: rgba(22,22,46,0.72);
+}
+.filter-head { margin-bottom: 18px; }
+.filter-head h2 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.02em; margin-top: 6px; }
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: 1.6fr repeat(3, 1fr) auto;
+  gap: 14px; align-items: end;
+}
+.field { display: grid; gap: 8px; }
+.field-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.field input,
+.field select {
+  width: 100%; padding: 13px 15px;
+  border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+  background: rgba(10,10,24,0.6); color: var(--text);
+  font: inherit; font-size: 1rem;
+  transition: border-color 200ms ease, box-shadow 200ms ease;  /* transition-colors */
+}
+.field input::placeholder { color: var(--muted-dim); }
+.field input:focus,
+.field select:focus {
+  outline: none; border-color: var(--away);
+  box-shadow: 0 0 0 3px var(--away-soft), 0 0 16px var(--away-soft);
+}
+.field select { appearance: none; cursor: pointer; }
+
+.filter-summary { margin: 18px 0 0; font-family: 'Share Tech Mono', monospace; font-size: 0.9rem; color: var(--muted); }
+.filter-summary strong { color: var(--away); }
+
+/* ---------- Buttons ---------- */
+.btn { font: inherit; font-family: 'Russo One', sans-serif; letter-spacing: 0.06em; text-transform: uppercase;
+  border: none; border-radius: var(--r-sm); cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, box-shadow 200ms ease, border-color 200ms ease; }
+.btn--ghost { padding: 14px 22px; background: transparent; border: 1px solid var(--primary); color: var(--primary-2); }
+.btn--ghost:hover { background: var(--primary); color: #fff; box-shadow: 0 0 22px rgba(124,58,237,0.6); }
+
+.btn--run {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  width: 100%; padding: 18px 22px; font-size: 1.05rem; color: #fff;
+  background: linear-gradient(135deg, var(--cta-2), var(--cta));
+  box-shadow: 0 0 24px rgba(255,0,110,0.4), 0 14px 30px -10px rgba(244,63,94,0.6);
+}
+.btn--run:hover { box-shadow: 0 0 36px rgba(255,0,110,0.6), 0 18px 40px -12px rgba(244,63,94,0.7); }
+.btn--run:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+.btn-arrow { transition: transform 200ms ease; }
+.btn--run:hover .btn-arrow { transform: translateX(5px); }
+
+/* ============================================================
+   SELECTION — two teams + center VS
+   ============================================================ */
+.selection-grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 0.62fr) 1fr;
+  gap: 22px; align-items: start;
+}
+.team-panel {
+  position: relative; overflow: hidden;
+  padding: 22px; border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: rgba(22,22,46,0.72);
+}
+.team-panel::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; }
+.team-panel--a::before { background: var(--home); box-shadow: 0 0 18px var(--home-glow); }
+.team-panel--b::before { background: var(--away); box-shadow: 0 0 18px var(--away-glow); }
+
+.team-header {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 12px;
+  margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--line);
+}
+.team-side { grid-column: 1; font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted-dim); }
+.team-header h2 { grid-column: 1; font-size: 1.8rem; text-transform: uppercase; }
+.team-panel--a .team-header h2 { color: var(--home); text-shadow: 0 0 18px var(--home-glow); }
+.team-panel--b .team-header h2 { color: var(--away); text-shadow: 0 0 18px var(--away-glow); }
+
+.team-count { grid-column: 2; grid-row: 1 / span 2; align-self: center;
+  font-family: 'Share Tech Mono', monospace; font-size: 1.9rem; color: var(--text); }
+.team-count-max { font-size: 1rem; color: var(--muted-dim); }
+.team-count.is-full { color: var(--ok); text-shadow: 0 0 14px rgba(43,255,176,0.5); }
+
+.player-list {
+  display: grid; gap: 9px;
+  max-height: min(660px, calc(100vh - 240px)); min-height: 260px;
+  overflow-y: auto; padding-right: 6px;
+  scrollbar-width: thin; scrollbar-color: var(--primary) transparent;
+}
+.player-list::-webkit-scrollbar { width: 8px; }
+.player-list::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.5); border-radius: 999px; }
+
+.player-card {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 13px;
+  min-height: 44px;                                   /* touch-target-size */
+  padding: 11px 14px; border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: rgba(10,10,24,0.45); cursor: pointer;   /* cursor-pointer */
+  transition: border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+}
+.player-card:hover { border-color: var(--line-strong); background: rgba(124,58,237,0.08); }
+.player-card input { position: absolute; opacity: 0; pointer-events: none; }
+
+.player-check {
+  width: 22px; height: 22px; flex-shrink: 0;
+  border: 2px solid var(--line-strong); border-radius: var(--r-sm);
+  display: grid; place-items: center; transition: all 200ms ease;
+}
+.player-check::after { content: ""; width: 10px; height: 10px; border-radius: 2px;
+  transform: scale(0); transition: transform 200ms cubic-bezier(.34,1.56,.64,1); }
+.team-panel--a .player-card input:checked ~ .player-check { border-color: var(--home); background: var(--home-soft); box-shadow: 0 0 14px var(--home-glow); }
+.team-panel--b .player-card input:checked ~ .player-check { border-color: var(--away); background: var(--away-soft); box-shadow: 0 0 14px var(--away-glow); }
+.team-panel--a .player-card input:checked ~ .player-check::after { background: var(--home); transform: scale(1); }
+.team-panel--b .player-card input:checked ~ .player-check::after { background: var(--away); transform: scale(1); }
+.team-panel--a .player-card:has(input:checked) { border-color: var(--home); background: var(--home-soft); }
+.team-panel--b .player-card:has(input:checked) { border-color: var(--away); background: var(--away-soft); }
+
+.player-card.is-locked { opacity: 0.4; cursor: not-allowed; }
+.player-card.is-locked:hover { background: rgba(10,10,24,0.45); border-color: var(--line); }
+
+.player-body { min-width: 0; }
+.player-name { display: block; font-weight: 600; font-size: 0.98rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-subtitle { display: block; margin-top: 1px; font-size: 0.82rem; color: var(--muted); }
+
+.rating-badge {
+  font-family: 'Share Tech Mono', monospace; font-size: 0.95rem;
+  min-width: 46px; text-align: center; padding: 6px 8px; border-radius: var(--r-sm);
+  background: rgba(124,58,237,0.16); color: var(--primary-2);
+  border: 1px solid rgba(124,58,237,0.3);
+}
+
+/* ---------- Center VS ---------- */
+.versus { display: grid; gap: 18px; align-content: start; position: sticky; top: 20px; z-index: var(--z-sticky); }
+.versus-mark {
+  font-family: 'Russo One', sans-serif; font-size: clamp(3.2rem, 7vw, 5.2rem);
+  text-align: center; line-height: 1; letter-spacing: 0.03em; color: #fff;
+  text-shadow: 0 0 10px var(--home-glow), 0 0 26px var(--away-glow), 0 0 52px var(--primary);
+}
+.versus-info { text-align: left; }
+.versus-info h3 { font-size: 1.15rem; text-transform: uppercase; margin-bottom: 10px; color: var(--text); }
+.versus-info p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+
+/* ---------- Shared panel ---------- */
+.panel-card { padding: 22px; border: 1px solid var(--line); border-radius: var(--r-lg); background: rgba(22,22,46,0.72); }
+.panel-card h4 { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--away); margin-bottom: 16px; }
+.panel-note { margin: 14px 0 0; font-size: 0.84rem; color: var(--muted-dim); }
+
+/* ============================================================
+   RESULT — synth scoreboard
+   ============================================================ */
+.result-panel { grid-column: 1 / -1; display: grid; gap: 22px; margin-top: 30px; }
+.scoreboard {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px;
+  padding: 32px 36px; border: 1px solid var(--line-strong); border-radius: var(--r-lg);
+  background: radial-gradient(700px 240px at 50% -40%, rgba(124,58,237,0.2), transparent 70%), rgba(10,10,24,0.7);
+  box-shadow: 0 0 50px -16px rgba(124,58,237,0.5) inset;
+}
+.scoreboard-team { display: grid; gap: 4px; padding: 14px 18px; border-radius: var(--r-md); transition: background 240ms ease; }
+.scoreboard-team--a { text-align: left; border-left: 3px solid var(--home); }
+.scoreboard-team--b { text-align: right; border-right: 3px solid var(--away); }
+.scoreboard-team--a.is-winner { background: var(--home-soft); box-shadow: inset 0 0 0 1px var(--home), 0 0 30px -8px var(--home-glow); }
+.scoreboard-team--b.is-winner { background: var(--away-soft); box-shadow: inset 0 0 0 1px var(--away), 0 0 30px -8px var(--away-glow); }
+.scoreboard-side { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted-dim); }
+.scoreboard-name { font-family: 'Russo One', sans-serif; font-size: 1.4rem; text-transform: uppercase; }
+.scoreboard-team--a .scoreboard-name { color: var(--home); text-shadow: 0 0 16px var(--home-glow); }
+.scoreboard-team--b .scoreboard-name { color: var(--away); text-shadow: 0 0 16px var(--away-glow); }
+.scoreboard-score { font-family: 'Share Tech Mono', monospace; font-size: clamp(3rem, 7vw, 5rem); line-height: 0.95; color: #fff; font-variant-numeric: tabular-nums; }
+.scoreboard-center { display: grid; gap: 6px; justify-items: center; padding: 0 12px; }
+.scoreboard-final { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted-dim); }
+.scoreboard-winner { font-family: 'Russo One', sans-serif; font-size: clamp(1.3rem, 3vw, 2.1rem); text-transform: uppercase; color: #fff; text-shadow: 0 0 24px var(--primary); white-space: nowrap; }
+.scoreboard-tag { font-size: 0.66rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted-dim); }
+
+/* ---------- Prediction (comparison bar, skill: chart-type + value labels) ---------- */
+.prediction-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px; }
+.prob-bar { display: flex; height: 18px; border-radius: 999px; overflow: hidden; border: 1px solid var(--line); }
+.prob-fill-a { width: var(--prob); background: var(--home); box-shadow: 0 0 16px var(--home-glow); }
+.prob-fill-b { flex: 1; background: var(--away); box-shadow: 0 0 16px var(--away-glow); }
+.prob-legend { display: flex; justify-content: space-between; margin-top: 12px; }
+.prob-tag { font-family: 'Share Tech Mono', monospace; font-size: 0.95rem; }
+.prob-tag--a { color: var(--home); }
+.prob-tag--b { color: var(--away); }
+
+.stat-pairs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0 0; }
+.stat-pairs--stack { grid-template-columns: 1fr; gap: 12px; }
+.stat-pairs div { padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r-md); background: rgba(10,10,24,0.45); }
+.stat-pairs dt { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.stat-pairs dd { margin: 6px 0 0; font-family: 'Share Tech Mono', monospace; font-size: 1.4rem; color: var(--text); }
+
+/* ---------- Box scores ---------- */
+.stats-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.stats-table--a { border-top: 3px solid var(--home); }
+.stats-table--b { border-top: 3px solid var(--away); }
+.stats-table table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.stats-table thead th { text-align: right; padding: 0 0 12px; font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted-dim); border-bottom: 1px solid var(--line-strong); }
+.stats-table thead th:first-child { text-align: left; }
+.stats-table tbody td { text-align: right; padding: 11px 0; border-bottom: 1px solid var(--line); font-family: 'Share Tech Mono', monospace; font-size: 0.96rem; color: var(--muted); }
+.stats-table tbody tr:last-child td { border-bottom: none; }
+.cell-name { text-align: left !important; font-family: 'Chakra Petch', sans-serif !important; font-weight: 600; color: var(--text) !important; }
+.cell-key { color: #fff !important; }
+
+/* ============================================================
+   ALERTS  (error-feedback)
+   ============================================================ */
+.alert-panel { display: grid; gap: 10px; margin-bottom: 22px; }
+.alert {
+  display: flex; align-items: center; gap: 14px; padding: 15px 18px;
+  border: 1px solid rgba(255,59,107,0.5); border-left: 4px solid var(--danger);
+  border-radius: var(--r-sm); background: rgba(255,59,107,0.1); color: #ffd9e2; font-weight: 500;
+}
+.alert-flag { display: grid; place-items: center; width: 24px; height: 24px; flex-shrink: 0;
+  border-radius: 50%; background: var(--danger); color: #fff; font-weight: 700; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-foot {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line);
+  font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted-dim);
+}
+
+/* ============================================================
+   MOTION — staggered reveal (ease-out), one orchestrated load
+   ============================================================ */
+.reveal { opacity: 0; transform: translateY(22px);
+  transition: opacity 600ms ease-out, transform 600ms cubic-bezier(.22,1,.36,1);
+  transition-delay: var(--reveal-delay, 0ms); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* prefers-reduced-motion — kill all motion & CRT shimmer (skill: reduced-motion) */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .live-dot,
+  .hero-title-accent::before,
+  .hero-title-accent::after { animation: none; }
+  * { scroll-behavior: auto; }
+}
+
+/* ============================================================
+   RESPONSIVE — 375 / 768 / 1024 / 1440
+   ============================================================ */
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; gap: 26px; }
+  .selection-grid { grid-template-columns: 1fr; }
+  .versus { position: static; order: 3; }
+  .versus-mark { font-size: 3rem; }
+  .prediction-grid, .stats-grid { grid-template-columns: 1fr; }
+  .filter-grid { grid-template-columns: 1fr 1fr; }
+  .filter-button { grid-column: 1 / -1; }
+}
+@media (max-width: 768px) {
+  .filter-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .page-shell { padding: 24px 16px 40px; }
+  .hero { padding: 24px 20px; }
+  .filter-grid { grid-template-columns: 1fr; }
+  .scoreboard { grid-template-columns: 1fr; text-align: center; gap: 14px; }
+  .scoreboard-team--a, .scoreboard-team--b { text-align: center; border: none; }
+  .site-foot { flex-direction: column; gap: 8px; text-align: center; }
+}

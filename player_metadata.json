@@ -1,0 +1,464 @@
+{
+  "2544": {
+    "team_abbreviation": "LAL",
+    "position": "Forward",
+    "from_year": 2003,
+    "to_year": 2025
+  },
+  "209": {
+    "team_abbreviation": "CHH",
+    "position": "Guard-Forward",
+    "from_year": 1986,
+    "to_year": 2001
+  },
+  "2201": {
+    "team_abbreviation": "N/A",
+    "position": "Center",
+    "from_year": 2001,
+    "to_year": 2012
+  },
+  "201191": {
+    "team_abbreviation": "N/A",
+    "position": "Guard",
+    "from_year": 2007,
+    "to_year": 2009
+  },
+  "688": {
+    "team_abbreviation": "N/A",
+    "position": "Forward-Guard",
+    "from_year": 1993,
+    "to_year": 2004
+  },
+  "203552": {
+    "team_abbreviation": "GSW",
+    "position": "Guard",
+    "from_year": 2013,
+    "to_year": 2025
+  },
+  "201939": {
+    "team_abbreviation": "GSW",
+    "position": "Guard",
+    "from_year": 2009,
+    "to_year": 2025
+  },
+  "78102": {
+    "team_abbreviation": "UTA",
+    "position": "Forward",
+    "from_year": 1985,
+    "to_year": 1987
+  },
+  "1630173": {
+    "team_abbreviation": "SAC",
+    "position": "Forward",
+    "from_year": 2020,
+    "to_year": 2025
+  },
+  "1630534": {
+    "team_abbreviation": "BKN",
+    "position": "Guard",
+    "from_year": 2022,
+    "to_year": 2025
+  },
+  "1630583": {
+    "team_abbreviation": "MEM",
+    "position": "Forward-Center",
+    "from_year": 2021,
+    "to_year": 2025
+  },
+  "1641725": {
+    "team_abbreviation": "NOP",
+    "position": "Guard",
+    "from_year": 2024,
+    "to_year": 2025
+  },
+  "1642846": {
+    "team_abbreviation": "UTA",
+    "position": "Forward",
+    "from_year": 2025,
+    "to_year": 2025
+  },
+  "1628386": {
+    "team_abbreviation": "CLE",
+    "position": "Center",
+    "from_year": 2017,
+    "to_year": 2025
+  },
+  "203507": {
+    "team_abbreviation": "MIL",
+    "position": "Forward",
+    "from_year": 2013,
+    "to_year": 2025
+  },
+  "1628384": {
+    "team_abbreviation": "NYK",
+    "position": "Forward-Guard",
+    "from_year": 2017,
+    "to_year": 2025
+  },
+  "1626164": {
+    "team_abbreviation": "N/A",
+    "position": "Unknown",
+    "from_year": null,
+    "to_year": null
+  },
+  "1628973": {
+    "team_abbreviation": "NYK",
+    "position": "Guard",
+    "from_year": 2018,
+    "to_year": 2025
+  },
+  "203919": {
+    "team_abbreviation": "MEM",
+    "position": "Guard",
+    "from_year": 2014,
+    "to_year": 2015
+  },
+  "1628395": {
+    "team_abbreviation": "N/A",
+    "position": "Forward",
+    "from_year": 2017,
+    "to_year": 2021
+  },
+  "1629648": {
+    "team_abbreviation": "N/A",
+    "position": "Guard",
+    "from_year": 2019,
+    "to_year": 2020
+  },
+  "203903": {
+    "team_abbreviation": "NYK",
+    "position": "Guard",
+    "from_year": 2014,
+    "to_year": 2025
+  },
+  "202348": {
+    "team_abbreviation": "WAS",
+    "position": "Guard",
+    "from_year": 2010,
+    "to_year": 2017
+  },
+  "200770": {
+    "team_abbreviation": "N/A",
+    "position": "Guard",
+    "from_year": 2006,
+    "to_year": 2016
+  },
+  "1630259": {
+    "team_abbreviation": "SAC",
+    "position": "Guard",
+    "from_year": 2023,
+    "to_year": 2023
+  },
+  "1630692": {
+    "team_abbreviation": "PHX",
+    "position": "Guard",
+    "from_year": 2021,
+    "to_year": 2025
+  },
+  "1631160": {
+    "team_abbreviation": "N/A",
+    "position": "Guard",
+    "from_year": 2022,
+    "to_year": 2022
+  },
+  "893": {
+    "team_abbreviation": "CHI",
+    "position": "Guard",
+    "from_year": 1984,
+    "to_year": 2002
+  },
+  "203500": {
+    "team_abbreviation": "HOU",
+    "position": "Center",
+    "from_year": 2013,
+    "to_year": 2025
+  },
+  "1628389": {
+    "team_abbreviation": "MIA",
+    "position": "Center-Forward",
+    "from_year": 2017,
+    "to_year": 2025
+  },
+  "1629638": {
+    "team_abbreviation": "ATL",
+    "position": "Guard",
+    "from_year": 2019,
+    "to_year": 2025
+  },
+  "1628960": {
+    "team_abbreviation": "PHX",
+    "position": "Guard",
+    "from_year": 2018,
+    "to_year": 2025
+  },
+  "1630631": {
+    "team_abbreviation": "NYK",
+    "position": "Guard",
+    "from_year": 2021,
+    "to_year": 2025
+  },
+  "203937": {
+    "team_abbreviation": "MIN",
+    "position": "Forward-Guard",
+    "from_year": 2014,
+    "to_year": 2025
+  },
+  "1630828": {
+    "team_abbreviation": "MIL",
+    "position": "Forward",
+    "from_year": 2025,
+    "to_year": 2025
+  },
+  "203648": {
+    "team_abbreviation": "MIL",
+    "position": "Forward",
+    "from_year": 2015,
+    "to_year": 2025
+  },
+  "1630175": {
+    "team_abbreviation": "N/A",
+    "position": "Guard",
+    "from_year": 2020,
+    "to_year": 2025
+  },
+  "1630166": {
+    "team_abbreviation": "POR",
+    "position": "Forward",
+    "from_year": 2020,
+    "to_year": 2025
+  },
+  "1629028": {
+    "team_abbreviation": "LAL",
+    "position": "Center",
+    "from_year": 2018,
+    "to_year": 2025
+  },
+  "1628963": {
+    "team_abbreviation": "DAL",
+    "position": "Forward",
+    "from_year": 2018,
+    "to_year": 2025
+  },
+  "1630163": {
+    "team_abbreviation": "CHA",
+    "position": "Guard",
+    "from_year": 2020,
+    "to_year": 2025
+  },
+  "1628366": {
+    "team_abbreviation": "N/A",
+    "position": "Guard",
+    "from_year": 2017,
+    "to_year": 2025
+  },
+  "1631094": {
+    "team_abbreviation": "ORL",
+    "position": "Forward",
+    "from_year": 2022,
+    "to_year": 2025
+  },
+  "1630217": {
+    "team_abbreviation": "ORL",
+    "position": "Guard",
+    "from_year": 2020,
+    "to_year": 2025
+  },
+  "1631230": {
+    "team_abbreviation": "PHI",
+    "position": "Forward",
+    "from_year": 2022,
+    "to_year": 2025
+  },
+  "203084": {
+    "team_abbreviation": "SAS",
+    "position": "Forward",
+    "from_year": 2012,
+    "to_year": 2025
+  },
+  "1630567": {
+    "team_abbreviation": "TOR",
+    "position": "Forward-Guard",
+    "from_year": 2021,
+    "to_year": 2025
+  },
+  "1642964": {
+    "team_abbreviation": "OKC",
+    "position": "Guard",
+    "from_year": 2025,
+    "to_year": 2025
+  },
+  "1629628": {
+    "team_abbreviation": "TOR",
+    "position": "Forward-Guard",
+    "from_year": 2019,
+    "to_year": 2025
+  },
+  "1629646": {
+    "team_abbreviation": "GSW",
+    "position": "Center-Forward",
+    "from_year": 2021,
+    "to_year": 2025
+  },
+  "1642926": {
+    "team_abbreviation": "N/A",
+    "position": "Unknown",
+    "from_year": null,
+    "to_year": null
+  },
+  "1642419": {
+    "team_abbreviation": "TOR",
+    "position": "Forward",
+    "from_year": 2024,
+    "to_year": 2025
+  },
+  "201587": {
+    "team_abbreviation": "LAC",
+    "position": "Guard-Forward",
+    "from_year": 2008,
+    "to_year": 2025
+  },
+  "203078": {
+    "team_abbreviation": "LAC",
+    "position": "Guard",
+    "from_year": 2012,
+    "to_year": 2025
+  },
+  "1642866": {
+    "team_abbreviation": "MIN",
+    "position": "Forward",
+    "from_year": 2025,
+    "to_year": 2025
+  },
+  "76001": {
+    "team_abbreviation": "POR",
+    "position": "Forward",
+    "from_year": 1990,
+    "to_year": 1994
+  },
+  "76002": {
+    "team_abbreviation": "HOU",
+    "position": "Center",
+    "from_year": 1968,
+    "to_year": 1977
+  },
+  "76003": {
+    "team_abbreviation": "LAL",
+    "position": "Center",
+    "from_year": 1969,
+    "to_year": 1988
+  },
+  "51": {
+    "team_abbreviation": "DEN",
+    "position": "Guard",
+    "from_year": 1990,
+    "to_year": 2000
+  },
+  "1505": {
+    "team_abbreviation": "SAC",
+    "position": "Forward-Guard",
+    "from_year": 1997,
+    "to_year": 2003
+  },
+  "949": {
+    "team_abbreviation": "VAN",
+    "position": "Forward",
+    "from_year": 1996,
+    "to_year": 2007
+  },
+  "76005": {
+    "team_abbreviation": "GOS",
+    "position": "Forward",
+    "from_year": 1976,
+    "to_year": 1980
+  },
+  "76006": {
+    "team_abbreviation": "PHI",
+    "position": "Guard",
+    "from_year": 1956,
+    "to_year": 1956
+  },
+  "76007": {
+    "team_abbreviation": "N/A",
+    "position": "Unknown",
+    "from_year": null,
+    "to_year": null
+  },
+  "203518": {
+    "team_abbreviation": "N/A",
+    "position": "Guard",
+    "from_year": 2016,
+    "to_year": 2018
+  },
+  "1642264": {
+    "team_abbreviation": "SAS",
+    "position": "Guard",
+    "from_year": 2024,
+    "to_year": 2025
+  },
+  "1630170": {
+    "team_abbreviation": "SAS",
+    "position": "Guard-Forward",
+    "from_year": 2020,
+    "to_year": 2025
+  },
+  "1641705": {
+    "team_abbreviation": "SAS",
+    "position": "Forward-Center",
+    "from_year": 2023,
+    "to_year": 2025
+  },
+  "1642844": {
+    "team_abbreviation": "SAS",
+    "position": "Guard",
+    "from_year": 2025,
+    "to_year": 2025
+  },
+  "1628368": {
+    "team_abbreviation": "SAS",
+    "position": "Guard",
+    "from_year": 2017,
+    "to_year": 2025
+  },
+  "1628404": {
+    "team_abbreviation": "NYK",
+    "position": "Guard",
+    "from_year": 2017,
+    "to_year": 2025
+  },
+  "1626157": {
+    "team_abbreviation": "NYK",
+    "position": "Center-Forward",
+    "from_year": 2015,
+    "to_year": 2025
+  },
+  "1628969": {
+    "team_abbreviation": "NYK",
+    "position": "Guard-Forward",
+    "from_year": 2018,
+    "to_year": 2025
+  },
+  "165": {
+    "team_abbreviation": "HOU",
+    "position": "Center",
+    "from_year": 1984,
+    "to_year": 2002
+  },
+  "1629029": {
+    "team_abbreviation": "LAL",
+    "position": "Forward-Guard",
+    "from_year": 2018,
+    "to_year": 2025
+  },
+  "203999": {
+    "team_abbreviation": "DEN",
+    "position": "Center",
+    "from_year": 2015,
+    "to_year": 2025
+  },
+  "1628983": {
+    "team_abbreviation": "OKC",
+    "position": "Guard",
+    "from_year": 2018,
+    "to_year": 2025
+  }
+}

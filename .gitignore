@@ -1,0 +1,25 @@
+# Node / TypeScript
+node_modules/
+dist/
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+
+# Runtime / generated state
+model_state.json
+*.log
+
+# Environment & OS
+.env
+.DS_Store
+
+# Local AI tooling / private skills
+.claude/
